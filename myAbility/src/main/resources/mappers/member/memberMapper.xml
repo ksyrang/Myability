@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.myAbility.collection.member.DAO.ImemberDAO">
+
+	<select id="checkId" parameterType="String" resultType="Integer">
+		SELECT COUNT(*) FROM MEMBERS WHERE USERID=#{userId}
+	</select>
+
+	<insert id="insertMem" parameterType="com.myAbility.collection.member.DAO.memberDTO">
+		INSERT INTO MEMBERS (USERID, NAME, EMAIL, MOBILE, GENDER, ZIPCODE, ADDR1, ADDR2)
+			VALUES(#{userId},#{name},#{email},#{mobile},#{gender},#{zipCode},#{addr1},#{addr2})
+	</insert>
+
+	<insert id="isertLogin" parameterType="com.myAbility.collection.login.DAO.loginDTO">
+		INSERT INTO LOGIN (USERID, USERPW) VALUES(#{userId}, #{userPw})
+	</insert>
+
+	<insert id="insertPw" parameterType="com.myAbility.collection.member.DAO.pwArchiveDTO">
+		INSERT INTO PWARCHIVE (USERID, PW1, PW2, PW3, COUNT)
+			VALUES(#{userId},#{pw1},#{pw2},#{pw3},#{count})
+	</insert>
+
+	<select id="selectPwArchive" parameterType="String" resultType="com.myAbility.collection.member.DAO.pwArchiveDTO">
+		SELECT * FROM PWARCHIVE WHERE USERID=#{userId}
+	</select>	
+
+	<update id="updatePw" parameterType="com.myAbility.collection.member.DAO.pwArchiveDTO">	
+		UPDATE PWARCHIVE SET PW1=#{pw1}, PW2=#{pw2}, PW3=#{pw3}, COUNT=#{count} WHERE USERID=#{userId}
+	</update>
+
+</mapper>
